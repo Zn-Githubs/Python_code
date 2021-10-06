@@ -39,6 +39,7 @@ class GetNovel(object):
         # 文章内容
         text_block = re.search('<p>(.*?)</p>', html, re.S).group(1).replace('<br />', '')
         # 创建文件夹
+        # exist_ok：只有在目录不存在时创建目录，目录已存在时不会抛出异常
         os.makedirs('动物农场', exist_ok=True)
         with open(os.path.join('动物农场', chapter_name+'.txt'), 'w', encoding='utf-8') as f:
             f.write(text_block)
