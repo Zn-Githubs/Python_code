@@ -50,7 +50,7 @@ client.close()
 # 在shell中查询保存到MongoDB的数据
 >>> mongo # 打开MongoDB
 >>> show dbs # 查看所有数据库
->>> use tencent # 进入数据库
+>>> use tencent # 进入或创建数据库
 >>> show tables # 查看所有的聚合
 >>> db.zhaopin.find().pretty() #查询集合并格式化输出
 >>> it # 单次显示20多条数据，输入it查看更多
