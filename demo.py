@@ -1,12 +1,10 @@
-# 需求：获取腾讯招聘前5页信息并保存到MongoDB中
+# 01.导包
+import requests
+import threading
+import re
+import time
+import os
 
-# 导入requests, pymongo
-import requests, pymongo
-# base_url
-base_url = 'https://careers.tencent.com/tencentcareer/api/post/Query'
-# headers_ua
-
-# params
-
-# 发起get请求获取响应
-# json数据转字典提取数据
+# 02.声明全局变量和初始化互斥锁
+all_urls = [] # 分页链接
+all_img_urls = [] # 单页图册链接
