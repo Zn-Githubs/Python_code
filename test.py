@@ -28,7 +28,7 @@ def get_new_ip(endpage):
 # ---03.验证ip代理是否可用
 def check_ip_list():
   try:
-    response = requests.get('http://example.org', headers={'User-Agent': np.random.choice(user_agent), proxies={'http: ip'})
+    response = requests.get('http://example.org', headers={'User-Agent': np.random.choice(user_agent)}, proxies={'http: ip'})
     if response.code == 200:
       print(f'{ip}可用)
       global check_ok
@@ -38,8 +38,10 @@ def check_ip_list():
   except:
     print(f'{ip}不可用'
 
-
-
+# ---04.保存可用ip代理
+def save_ip():
+  print(f'共获得{len(check_ok)}个可用ip代理，现在开始保存...')
+  np.save('IP_pond/IP_http.npy', check_ok)
 
 if __name__ == '__main__':
   start_time = time.time()
@@ -64,5 +66,11 @@ if __name__ == '__main__':
   # 阻塞队列，保证先执行验证，再进行save、
   for w in wait_thread:
     w.join()
+  print('全部验证完成')
   
   # ---04.保存可用ip代理
+  save_ip()
+  print('保存完毕')
+  
+  end_time = time.time()
+  print(f'全部完成共耗时{round(end_time - start_time, 1)}')# 使用round()四舍五入并保留1位小数
