@@ -3,6 +3,7 @@ import numpy as nup
 from lxml import etree
 from Agent_Pood.Agent import AGENT as user_agent
 
+check_ip_ok = []
 
 # ---01.读取之前保存的ip代理数据---
 def get_old_ip():  
@@ -26,7 +27,17 @@ def get_new_ip(endpage):
     
 # ---03.验证ip代理是否可用
 def check_ip_list():
-  
+  try:
+    response = requests.get('http://example.org', headers={'User-Agent': np.random.choice(user_agent), proxies={'http: ip'})
+    if response.code == 200:
+      print(f'{ip}可用)
+      global check_ok
+      check_ok.append(ip)
+    else:
+      print(f'{ip}不可用'
+  except:
+    print(f'{ip}不可用'
+
 
 
 
@@ -40,7 +51,18 @@ if __name__ == '__main__':
   
   # ---02.抓取西拉网ip代理数据筛选后拼接ip代理
   get_new_ip(100)
+  ip_list = np.unique(ip_list)# np.unique()可以对列表进行去重操作
+  print(f'下载完成，准备验证{len(ip_list)}个ip代理')
   
-  # ---03.验证ip代理是否可用
+  # ---03.多线程验证ip代理是否可用
+  # 开启多线程
+  wait_tread = []
+  for ip in ip_list:
+    t = threading.Thread(target=check_ip_list, args=(ip))
+    wait_tread.append(t)
+    t.start()
+  # 阻塞队列，保证先执行验证，再进行save、
+  for w in wait_thread:
+    w.join()
   
   # ---04.保存可用ip代理
